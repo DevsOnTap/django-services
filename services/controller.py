@@ -106,7 +106,7 @@ class BaseController(object):
                 raise Exception('Invalid JSON data ' + e.message)
 
         elif content_type == "application/x-www-form-urlencoded":
-            request.payload = dict(getattr(request, request.method.upper, {}))
+            request.payload = dict(getattr(request, request.method.upper(), {}))
 
         if getattr(request, 'camel_case', False) and getattr(request, 'payload', False):
             request.payload = un_camel_dict(request.payload)
