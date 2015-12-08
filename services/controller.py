@@ -99,13 +99,13 @@ class BaseController(object):
     def build_payload(self, request):
         request.payload = {}
         content_type = request.META.get("CONTENT_TYPE", "application/json")
-        if content_type == 'application/json':
+        if 'application/json' in content_type:
             try:
                 request.payload = json.loads(request.body)
             except Exception as e:
                 raise Exception('Invalid JSON data ' + e.message)
 
-        elif content_type == "application/x-www-form-urlencoded":
+        elif "application/x-www-form-urlencoded" in content_type:
             request.payload = dict(getattr(request, request.method.upper(), {}))
 
         if getattr(request, 'camel_case', False) and getattr(request, 'payload', False):
